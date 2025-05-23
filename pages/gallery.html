@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Галерея</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        .gallery {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column; /* Изменено для вертикального расположения кнопок */
+        }
+        .gallery img {
+            max-width: 600px; /* Увеличено для лучшего отображения в слайдере */
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+            display: none; /* Скрываем все изображения по умолчанию */
+        }
+        #slider img.active {
+            display: block; /* Показываем только активное изображение */
+        }
+        .button {
+            cursor: pointer;
+            padding: 10px 20px;
+            margin: 10px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Галерея изображений</h1>
+    <div class="gallery" id="slider">
+        <img src="..//images/388d1ccb10cf08ed72386560e4a783f0.png" alt="Фото 1" class="active" />
+        <img src="..//images/7b4bf740-d487-43c7-ac97-df5dcbdabfde.jpeg" alt="Фото 2" />
+        <img src="..//images/8dd51cd0bf93cadc74116818c4b6aa80.jpg" alt="Фото 3" />
+        <img src="..//images/9c9f9fae157c394703a1aad0d8c3ad5d.jpg" alt="Фото 4" />
+
+        <button class="button" id="prevBtn">Назад</button>
+        <button class="button" id="nextBtn">Вперед</button>
+    </div>
+
+    <script>
+        let currentIndex = 0; // Индекс текущего изображения
+        const images = document.querySelectorAll('#slider img'); // Получаем все изображения
+        const totalImages = images.length; // Общее количество изображений
+
+        // Функция для показа изображения по индексу
+        function showImage(index) {
+            images.forEach((img, i) => {
+                img.classList.remove('active'); // Убираем класс active у всех изображений
+                if (i === index) {
+                    img.classList.add('active'); // Добавляем класс active к текущему изображению
+                }
+            });
+        }
+
+        // Обработчик события для кнопки "Вперед"
+        document.getElementById('nextBtn').addEventListener('click', () => {
+            currentIndex = (currentIndex + 1) % totalImages; // Переход к следующему изображению
+            showImage(currentIndex);
+        });
+
+        // Обработчик события для кнопки "Назад"
+        document.getElementById('prevBtn').addEventListener('click', () => {
+            currentIndex = (currentIndex - 1 + totalImages) % totalImages; // Переход к предыдущему изображению
+            showImage(currentIndex);
+        });
+
+        // Показать первое изображение при загрузке
+        showImage(currentIndex);
+    </script>
+</body>
+</html>
